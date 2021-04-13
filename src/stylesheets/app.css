@@ -1,0 +1,52 @@
+.navbar-item img{
+  max-height: 48px;
+
+}
+.hero .navbar{
+  background-color: #ffc423;
+}
+.hero-body{
+  background-color: #ffbf0f;
+}
+.navbar-menu .navbar-item{
+  font-weight: bold;
+}
+.hero .title, .hero .subtitle{
+  font-family: sans-serif;
+
+}
+.hero .subtitle{
+  max-width: 420px;
+}
+
+.map{
+  height: 420px;
+  max-width: 100%;
+}
+
+.contain-map{
+  padding: 10px;
+  position: relative;
+}
+
+.column .box{
+   height:100%;
+}
+.title.is-3{
+  text-transform: capitalize;
+}
+.map-input{
+  position: absolute;
+  padding: 5px 10px;
+  top: 20px;
+  left: 80px;
+  z-index:5000;
+  margin-right: 5px;
+
+
+}
+.disclaimer{
+  padding: 10px 15px;
+  background-color: #f9f4f4;
+  font-weight: bold;
+}
