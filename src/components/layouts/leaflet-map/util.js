@@ -3,7 +3,7 @@ import union from "@turf/union";
 import {point} from "@turf/helpers";
 import booleanIntersect from "@turf/boolean-intersects";
 
-const regexNum= /^([-+]?)([\d]{1,2})(((\.)(\d+)(,)))(\s*)(([-+]?)([\d]{1,3})((\.)(\d+))?)$/
+const regexNum =/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/
 const isLatitude = num => isFinite(num) && Math.abs(num) <= 90;
 const isLongitude = num => isFinite(num) && Math.abs(num) <= 180;
 
@@ -33,7 +33,8 @@ function setPinnedLocation({valid,lat,lng},setState,data){
       status:"loading"
     }));
     checkCordinates(data,{lat:lat,lng:lng}).then(
-      (value)=> setState((oldState)=>({...oldState, status:value }))
+      (value)=> setState((oldState)=>
+        ({...oldState, status:value,marker:true,zoom:15 }))
     )
   }else {
     throw new Error("invalid coordinates");

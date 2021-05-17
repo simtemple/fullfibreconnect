@@ -22,12 +22,12 @@ const AddGeoJson=()=>{
   map.setView(state.coordinates,state.zoom)
   const geoJSONlayer = injectGeoJson(data,filterGeoJson);
 
-  const mapEvent = useMapEvent(
+  useMapEvent(
     {
       click:(e)=> {
         console.log(e.latlng);
         setState((oldState)=>({...oldState, coordinates:{...e.latlng},status:"loading...",marker:true, zoom:15}));
-        ///mapEvent.setView(e.latlng,15);
+        
 
         checkCordinates(data,e.latlng).then(
           (value)=> setState((oldState)=>({...oldState, status:value }))
@@ -42,7 +42,7 @@ const AddGeoJson=()=>{
       setState((oldstate)=>({...oldstate, geojson:false}));
     }
 
-  },[state.geojson,map,geoJSONlayer]);
+  },[state.geojson,map,geoJSONlayer,setState]);
 
   return(
     !state.marker ? null : (

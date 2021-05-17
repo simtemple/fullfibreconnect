@@ -15,7 +15,7 @@ const HeroBody =({title,subtitle})=>{
         <p className="title is-3">{title}</p>
         <p className="subtitle is-5">{subtitle}</p>
         <p className="block">
-        <a className="button is-link is-rounded ">Check Fibre Availability</a>
+        <a href="#map" className="button is-link is-rounded ">Check Fibre Availability</a>
         </p>
 
       </div>

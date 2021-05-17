@@ -1,7 +1,7 @@
 import { MapProvider } from "./map-context";
 import Hero from "./layouts/hero";
 import HowItWorks from "./layouts/how-it-works";
-import LeafletMap from "./layouts/LeafletMap/index";
+import LeafletMap from "./layouts/leaflet-map/index";
 import Footer from "./layouts/footer";
 import logo from "../img/logo.png";
 

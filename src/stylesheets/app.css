@@ -50,3 +50,8 @@
   background-color: #f9f4f4;
   font-weight: bold;
 }
+
+.input{
+  width: unset;
+  margin-right: 5px;
+}

@@ -5,8 +5,8 @@ const MapContext = React.createContext();
 const initialState={
    geojson: true,
    coordinates:{
-     lat:5.5397,
-     lng:-0.2695
+     lat: 5.55721,
+     lng: -0.2118
    },
    status:"loading...",
    marker:false,

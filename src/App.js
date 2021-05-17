@@ -1,4 +1,4 @@
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/landing-page";
 
 import "bulma/css/bulma.css";
 import "leaflet/dist/leaflet.css"

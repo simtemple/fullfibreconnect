@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
-import MapInput from "./MapInput";
-import AddGeoJson from "./AddGeoJson";
+import MapInput from "./map-input";
+import AddGeoJson from "./add-geojson";
 
 
 
