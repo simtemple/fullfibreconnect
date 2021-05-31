@@ -8,7 +8,7 @@ import {checkCordinates,filterGeoJson } from "./util";
 
 
 
-// removes points from geoJSON data
+// adds geojson data
 const injectGeoJson=(data,filter,onEachFeature)=>{
   return L.geoJSON(data, {
     style: {color: "#ffc423", opacity:0.4},
@@ -26,8 +26,7 @@ const AddGeoJson=()=>{
     {
       click:(e)=> {
         console.log(e.latlng);
-        setState((oldState)=>({...oldState, coordinates:{...e.latlng},status:"loading...",marker:true, zoom:15}));
-        
+        setState((oldState)=>({...oldState, coordinates:{...e.latlng},status:"checking...",marker:true, zoom:15}));
 
         checkCordinates(data,e.latlng).then(
           (value)=> setState((oldState)=>({...oldState, status:value }))
@@ -48,7 +47,6 @@ const AddGeoJson=()=>{
     !state.marker ? null : (
       <Marker icon={icon} position={[state.coordinates.lat,state.coordinates.lng]}>
         <Tooltip direction="bottom" permanent>{`${state.status}`}</Tooltip>
-
       </Marker>
   ))
 

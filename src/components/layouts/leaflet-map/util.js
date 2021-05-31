@@ -26,15 +26,16 @@ function setPinnedLocation({valid,lat,lng},setState,data){
   if(valid){
     setState(
     (data)=>({...data,
+      marker:true,
       coordinates:{
         lat:lat,
         lng:lng
       },
-      status:"loading"
+      status:"checking..."
     }));
     checkCordinates(data,{lat:lat,lng:lng}).then(
       (value)=> setState((oldState)=>
-        ({...oldState, status:value,marker:true,zoom:15 }))
+        ({...oldState, status:value,zoom:15 }))
     )
   }else {
     throw new Error("invalid coordinates");

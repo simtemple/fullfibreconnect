@@ -8,7 +8,8 @@ const initialState={
      lat: 5.55721,
      lng: -0.2118
    },
-   status:"loading...",
+   status:"checking...",
+   search:false,
    marker:false,
    zoom:13
 };
