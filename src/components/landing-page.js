@@ -1,9 +1,11 @@
-import { MapProvider } from "./map-context";
 import Hero from "./layouts/hero";
 import HowItWorks from "./layouts/how-it-works";
 import LeafletMap from "./layouts/leaflet-map/index";
 import Footer from "./layouts/footer";
 import logo from "../img/logo.png";
+
+
+
 
 function Landing(props) {
   return (
@@ -15,7 +17,6 @@ function Landing(props) {
 const LandingPage=()=>{
 
   return(
-    <MapProvider>
     <Landing>
       <Hero
         logo={logo}
@@ -25,7 +26,6 @@ const LandingPage=()=>{
       <LeafletMap />
       <Footer />
     </Landing>
-   </MapProvider>
   )
 
 }

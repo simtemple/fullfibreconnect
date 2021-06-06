@@ -1,11 +1,15 @@
 import React,{ useEffect} from "react";
-import { useMapContext } from "../../map-context";
 import L from "leaflet";
 import { Marker, Tooltip,useMap,useMapEvent } from "react-leaflet";
 import data from "./data";
 import icon from "./icon";
-import {checkCordinates,filterGeoJson } from "./util";
-
+import {checkCordinates,filterGeoJson } from "../../../util";
+import { useStore } from "../../../global-state";
+import {
+  mapWasClicked,
+  loadedGeojson,
+  setAvailabity
+} from "../../../global-state/action";
 
 
 // adds geojson data
@@ -17,7 +21,7 @@ const injectGeoJson=(data,filter,onEachFeature)=>{
 }
 
 const AddGeoJson=()=>{
-  const [state, setState] = useMapContext();
+  const [state, dispatch] = useStore();
   const map = useMap();
   map.setView(state.coordinates,state.zoom)
   const geoJSONlayer = injectGeoJson(data,filterGeoJson);
@@ -25,11 +29,9 @@ const AddGeoJson=()=>{
   useMapEvent(
     {
       click:(e)=> {
-        console.log(e.latlng);
-        setState((oldState)=>({...oldState, coordinates:{...e.latlng},status:"checking...",marker:true, zoom:15}));
-
-        checkCordinates(data,e.latlng).then(
-          (value)=> setState((oldState)=>({...oldState, status:value }))
+        dispatch(mapWasClicked(e.latlng));
+        checkCordinates(data,{...e.latlng}).then(
+          (value)=> dispatch(setAvailabity(value))
         )
       }
     }
@@ -38,10 +40,10 @@ const AddGeoJson=()=>{
   useEffect(()=>{
     if(state.geojson){
       map.addLayer(geoJSONlayer)
-      setState((oldstate)=>({...oldstate, geojson:false}));
+      dispatch(loadedGeojson());
     }
 
-  },[state.geojson,map,geoJSONlayer,setState]);
+  },[state.geojson,map,geoJSONlayer,dispatch]);
 
   return(
     !state.marker ? null : (
