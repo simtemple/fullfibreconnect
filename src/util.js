@@ -43,7 +43,10 @@ function setPinnedLocation({valid,lat,lng},setState,data){
 }
 
 
-function checkCordinates(data,{lat,lng}){
+function checkCordinates(data,latitude,longitude){
+    const lat = parseFloat(latitude);
+    const lng = parseFloat(longitude);
+    console.log(typeof lat, typeof lng);
     const pt = point([lng,lat]);
     const bufferPoint = buffer(pt, 0.001);
 

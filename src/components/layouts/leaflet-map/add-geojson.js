@@ -30,7 +30,7 @@ const AddGeoJson=()=>{
     {
       click:(e)=> {
         dispatch(mapWasClicked(e.latlng));
-        checkCordinates(data,{...e.latlng}).then(
+        checkCordinates(data,e.latlng.lat, e.latlng.lng).then(
           (value)=> dispatch(setAvailabity(value))
         )
       }

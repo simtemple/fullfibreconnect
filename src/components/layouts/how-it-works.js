@@ -1,6 +1,6 @@
 
 const steps =[
-  "Enter your GPS coordinates or click the GPS icon to use your current location",
+  "Enter your GhanaPostGPS Address or click the GPS icon to use your current location",
   "Find your pinned location on map. The yellow highlighted areas is where there is MTN fibre",
   "Read the indication on the pinned location. Available means you can be connected "]
 const EachStep=({step,content})=>{

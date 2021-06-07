@@ -19,7 +19,10 @@ const initialState={
    search:false,
    marker:false,
    zoom:13,
-   gps_status: true,
+   gps_status:{
+     available: true,
+     message:"",
+   },
    internet_status:true,
    address_found:true
 };
@@ -37,7 +40,7 @@ function MapProvider(props){
 function useStore(){
   const context = useContext(mapContext);
   if(!context){
-    throw new Error("store should be use within MapProvider");
+    throw new Error("store should be use within a MapProvider");
   }
   return context;
 }

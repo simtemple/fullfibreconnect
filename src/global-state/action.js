@@ -1,7 +1,7 @@
 export function translateGPSAddress(data){
   return(
   {
-    type:"locate/ghpostAddress",
+    type:"locate-ghpostAddress",
     payload: data
   })
 }
@@ -9,7 +9,7 @@ export function translateGPSAddress(data){
 export function gpsLocate(){
   return(
     {
-      type:"locate/gps"
+      type:"locate-gps"
     }
   )
 }
@@ -17,14 +17,14 @@ export function gpsLocate(){
 export function loadedGeojson(){
   return(
     {
-      type:"geojson/loaded"
+      type:"geojson-loaded"
     }
   )
 }
 export function mapWasClicked(data){
   return(
     {
-      type:"map/click",
+      type:"map-click",
       payload:data
     }
   )
@@ -42,8 +42,40 @@ export function plotGPScoords({latitude,longitude}){
 }
 
 export function setAvailabity(data){
-  return{
-    type:"fibre-availability",
-    payload:data
-  }
+  return(
+    {
+      type:"fibre-availability",
+      payload:data
+    }
+  )
+
+}
+
+export function setGPSFailed(message){
+  return(
+    {
+      type:"gps-not-found",
+      payload:message
+    }
+  )
+}
+export function plotGhanaGPS(lat,lng){
+  return(
+    {
+      type:"address-found",
+      payload:{
+        lat:lat,
+        lng:lng
+      }
+    }
+  )
+
+}
+
+export function addressNotFound(){
+  return(
+    {
+      type:"address-not-found"
+    }
+  )
 }

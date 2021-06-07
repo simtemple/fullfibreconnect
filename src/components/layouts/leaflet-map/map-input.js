@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { checkCordinates } from "../../../util";
 import data from "./data"
-import ghanaPostGPS from "../../../ghpostgps-address/index";
+import ghanaPostGPS from "../../../ghpostgps-address";
 import { useStore } from "../../../global-state";
 import {
   plotGPScoords,
-  setAvailabity
+  plotGhanaGPS,
+  setAvailabity,
+  setGPSFailed,
+  gpsLocate,
+  addressNotFound
 } from "../../../global-state/action";
 
 
@@ -21,7 +25,7 @@ const GPSAndProgress=({handleClick, status})=>{
 }
 const MapInput=()=>{
   const urlencoded = new URLSearchParams();
-  const [latLng, setLatLng] =useState("");
+  const [address, setAddress] =useState("");
   const [state, dispatch ] = useStore();
 
 
@@ -32,24 +36,53 @@ const MapInput=()=>{
   }
 
   const handleCheck=(e)=>{
+      if(address.length >= 9 && address.indexOf("-") === 2 ){
+        urlencoded.append("address", address);
+        dispatch(gpsLocate());
+        ghanaPostGPS(urlencoded.toString()).then(
+          (json)=>{
+            if(json.found){
+              dispatch(plotGhanaGPS(
+                json.data.Table[0].CenterLatitude,
+                json.data.Table[0].CenterLongitude
+              ));
+              checkCordinates(data,json.data.Table[0].CenterLatitude,json.data.Table[0].CenterLongitude)
+              .then(
+                (value)=> dispatch(
+                  setAvailabity(`${value} at ${json.data.Table[0].Street}, ${json.data.Table[0].Area}` ))
+              )
+            }else {
+               dispatch(addressNotFound());
+            }
+          }
+        )
 
+      }else{
+        console.log("incorrect address");
+      }
   }
+
   const handleChange=(e)=>{
-     setLatLng(e.target.value);
+     setAddress(e.target.value);
   }
 
   const handleClick =()=>{
-    dispatch({type:"locate/gps"});
+    dispatch(gpsLocate());
     navigator.geolocation.getCurrentPosition(function(position){
-       if (position.coords.accuracy <= 25) {
+
+       if (position.coords.accuracy <= 25) { // check if
            dispatch(plotGPScoords(position.coords));
-           checkCordinates(data,{lat:position.coords.latitude,lng:position.coords.longitude}).then(
+           checkCordinates(data,position.coords.latitude, position.coords.longitude).then(
              (value)=> dispatch(setAvailabity(value))
            )
-       }else {
-         console.log("accuracy exceeds 25");
+       }else{
+         console.log("Sorry, GPS proximity exceeds 25m, use GhanaPostGPS address instead");
+         dispatch(setGPSFailed("Sorry, GPS proximity exceeds 25m, use GhanaPostGPS address instead"));
        }
 
+    },function(error){
+        console.log("Sorry, Kindly ensure your GPS permission is enabled and try again");
+        dispatch(setGPSFailed("Sorry, Kindly ensure your GPS permission is enabled and try again"));
     });
 
 
@@ -59,7 +92,7 @@ const MapInput=()=>{
      <div className="field has-addons">
           <p className="control">
             <input className="input is-info "onChange={(e)=> handleChange(e)}
-            onKeyDown={(e)=>handleKeyDown(e)} type="text" placeholder="Enter coordinates(lat,lng)" />
+            onKeyDown={(e)=>handleKeyDown(e)} type="text" placeholder="eg. GA-052-4634" />
           </p>
           <p className="control"><button onClick={handleCheck} className="button is-info">check </button></p>
 
