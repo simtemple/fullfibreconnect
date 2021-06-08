@@ -45,6 +45,15 @@
 
 
 }
+.noti{
+  position: absolute;
+  padding: 5px 10px;
+  top: 20px;
+  max-width: 400px;
+  right: 20px;
+  z-index:5001;
+
+}
 .disclaimer{
   padding: 10px 15px;
   background-color: #f9f4f4;

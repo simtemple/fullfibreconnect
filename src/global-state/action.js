@@ -79,3 +79,8 @@ export function addressNotFound(){
     }
   )
 }
+export function disableNotification(){
+  return({
+    type:"disable-notification"
+  })
+}

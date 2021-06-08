@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
 import MapInput from "./map-input";
+import Notification from "../notification";
 import AddGeoJson from "./add-geojson";
 
 
@@ -10,7 +11,7 @@ const LeafletMap=()=>{
   return(
     <div  className="contain-map">
     <MapInput />
-
+    <Notification />
     <MapContainer
     className="map"
     center={[5.6364, -0.2576]}

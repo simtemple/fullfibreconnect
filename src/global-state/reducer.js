@@ -62,7 +62,13 @@ function reducer(state, action){
 
         state ={...state, status:action.payload}
         return state;
-
+      case "disable-notification":
+        state ={...state, gps_status:{
+          available:true,
+          message:""
+        }}
+        
+        return state;
 
     default:
       return state;

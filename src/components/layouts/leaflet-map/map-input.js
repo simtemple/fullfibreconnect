@@ -76,13 +76,12 @@ const MapInput=()=>{
              (value)=> dispatch(setAvailabity(value))
            )
        }else{
-         console.log("Sorry, GPS proximity exceeds 25m, use GhanaPostGPS address instead");
-         dispatch(setGPSFailed("Sorry, GPS proximity exceeds 25m, use GhanaPostGPS address instead"));
+
+         dispatch(setGPSFailed("Sorry, GPS proximity exceeds 25m, use Ghana Post GPS address instead"));
        }
 
     },function(error){
-        console.log("Sorry, Kindly ensure your GPS permission is enabled and try again");
-        dispatch(setGPSFailed("Sorry, Kindly ensure your GPS permission is enabled and try again"));
+        dispatch(setGPSFailed("Sorry, kindly ensure your GPS permission is enabled. Refresh page and try again"));
     });
 
 
