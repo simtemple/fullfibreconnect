@@ -14,12 +14,13 @@ import {
 
 
 
-const GPSAndProgress=({handleClick, status})=>{
+const GPSAndProgress=({handleClick, status, found })=>{
 
   return(
     <div className="buttons is-group">
       <button onClick={ handleClick } className="button is-info">use GPS</button>
       { status ?(<button className="button is-info is-loading"></button>):null }
+      { !found ?(<button className="button" disabled>Address Not Found</button>): null }
     </div>
   )
 }
@@ -70,7 +71,7 @@ const MapInput=()=>{
     dispatch(gpsLocate());
     navigator.geolocation.getCurrentPosition(function(position){
 
-       if (position.coords.accuracy <= 25) { // check if
+       if (position.coords.accuracy <= 25) { // check if proximity is less than or equal to 25 accuracy
            dispatch(plotGPScoords(position.coords));
            checkCordinates(data,position.coords.latitude, position.coords.longitude).then(
              (value)=> dispatch(setAvailabity(value))
@@ -96,7 +97,7 @@ const MapInput=()=>{
           <p className="control"><button onClick={handleCheck} className="button is-info">check </button></p>
 
      </div>
-      <GPSAndProgress handleClick={handleClick} status={state.search} />
+      <GPSAndProgress handleClick={handleClick} status={state.search} found={state.address_found}/>
     </div>
   )
 }

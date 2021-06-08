@@ -16,14 +16,19 @@ function reducer(state, action){
           address_found:true,
           coordinates:{ ...action.payload },
           marker:true,
-          zoom:15
+          zoom:15,
+          gps_status:{
+            available:true,
+            message:""
+          }
         }
 
         return state;
     case "address-not-found":
         state={
           ...state,
-          address_found:false
+          address_found:false,
+          search:false
         }
 
         return state;
@@ -36,7 +41,11 @@ function reducer(state, action){
           search:false,
           coordinates:{ ...action.payload },
           marker:true,
-          zoom:15
+          zoom:15,
+          gps_status:{
+            available:true,
+            message:""
+          }
         }
         return state;
     case "gps-not-found":
@@ -63,11 +72,13 @@ function reducer(state, action){
         state ={...state, status:action.payload}
         return state;
       case "disable-notification":
-        state ={...state, gps_status:{
+        state ={...state,
+          gps_status:{
           available:true,
           message:""
-        }}
-        
+         }
+       }
+
         return state;
 
     default:
