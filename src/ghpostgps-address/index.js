@@ -1,4 +1,6 @@
-const URL = "https://ghpgps.herokuapp.com";
+/* Ghana Post address engineering was done by sperixlabs.org */
+
+const URL = "https://ghanapostgps.sperixlabs.org";
 
 
 async function getAddress(urlencoded){

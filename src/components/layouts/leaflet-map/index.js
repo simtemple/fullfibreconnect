@@ -10,7 +10,7 @@ const LeafletMap=()=>{
 
   return(
     <div  className="contain-map">
-    <MapInput />
+    <MapInput /> { /*Ghana post address translation, gps geolocation, happens here.*/ }
     <Notification />
     <MapContainer
     className="map"
@@ -22,7 +22,7 @@ const LeafletMap=()=>{
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
 
-    <AddGeoJson />
+    <AddGeoJson /> {/* map click, load geojson, maker all happens here*/ }
   </MapContainer>
   </div>
   )

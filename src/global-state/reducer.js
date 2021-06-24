@@ -6,6 +6,8 @@ function reducer(state, action){
           ...state,
           search:true,
           address_found:true,
+          marker:false,
+          zoom:13
         }
         return state;
     case "address-found":
@@ -28,12 +30,19 @@ function reducer(state, action){
         state={
           ...state,
           address_found:false,
-          search:false
+          search:false,
+          marker:false
         }
 
         return state;
     case "locate-gps":
-        state ={...state, search:true, status:"checking..."}
+        state ={
+          ...state,
+          search:true,
+          status:"checking...",
+          marker:false,
+          zoom:13
+        }
         return state;
     case "gps-found":
         state = {
@@ -51,6 +60,8 @@ function reducer(state, action){
     case "gps-not-found":
         state={
           ...state,
+          marker:false,
+          zoom:13,
           gps_status:{
             available:false,
             message:action.payload
