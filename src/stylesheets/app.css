@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&family=Nunito:wght@200&display=swap');
+
 .navbar-item img{
   max-height: 48px;
 
@@ -32,9 +34,20 @@
 .column .box{
    height:100%;
 }
+.is-5{
+  text-transform: capitalize;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
 .title.is-3{
   text-transform: capitalize;
+  font-family: 'Nunito', sans-serif;
 }
+
+.box.content h3, p{
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
 .map-input{
   position: absolute;
   padding: 5px 10px;
