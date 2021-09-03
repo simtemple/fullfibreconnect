@@ -8,13 +8,14 @@ import {
 import reducer from "./reducer"
 
 const mapContext = createContext();
+
 const initialState={
    geojson: true,
    coordinates:{
      lat: 5.55721,
      lng: -0.2118,
      accuracy:0
-   },
+    },
    status:"checking...",
    search:false,
    marker:false,

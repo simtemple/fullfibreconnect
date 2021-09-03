@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { checkCordinates } from "../../../util";
-import data from "./data"
-import ghanaPostGPS from "../../../ghpostgps-address";
-import { useStore } from "../../../global-state";
+import { checkCordinates } from "../util";
+import data from "./LeafletMap/data"
+import ghanaPostGPS from "../Api/ghpostAddress";
+import { useStore } from "../global-state";
 import {
   plotGPScoords,
   plotGhanaGPS,
-  setAvailabity,
+  setAvailability,
   setGPSFailed,
   gpsLocate,
   addressNotFound
-} from "../../../global-state/action";
+} from "../global-state/action";
 
 
+const GhpostValidationReg = /^[a-zA-Z][a-zA-Z0-9](-\d{3})(-\d{4})/
 
 const GPSAndProgress=({handleClick, status, found })=>{
 
@@ -25,7 +26,6 @@ const GPSAndProgress=({handleClick, status, found })=>{
   )
 }
 const MapInput=()=>{
-  const urlencoded = new URLSearchParams();
   const [address, setAddress] =useState("");
   const [state, dispatch ] = useStore();
 
@@ -37,10 +37,9 @@ const MapInput=()=>{
   }
 
   const handleCheck=(e)=>{
-      if(address.length >= 9 && address.indexOf("-") === 2 ){
-        urlencoded.append("address", address);
+      if(GhpostValidationReg.test(address)){
         dispatch(gpsLocate());
-        ghanaPostGPS(urlencoded.toString()).then(
+        ghanaPostGPS(address).then(
           (json)=>{
             if(json.found){
               dispatch(plotGhanaGPS(
@@ -50,7 +49,7 @@ const MapInput=()=>{
               checkCordinates(data,json.data.Table[0].CenterLatitude,json.data.Table[0].CenterLongitude)
               .then(
                 (value)=> dispatch(
-                  setAvailabity(`${value} at ${json.data.Table[0].Street}, ${json.data.Table[0].Area}` ))
+                  setAvailability(`${value} at ${json.data.Table[0].Street}, ${json.data.Table[0].Area}` ))
               )
             }else {
                dispatch(addressNotFound());
@@ -74,7 +73,7 @@ const MapInput=()=>{
        if (position.coords.accuracy <= 25) { // check if proximity is less than or equal to 25 accuracy
            dispatch(plotGPScoords(position.coords));
            checkCordinates(data,position.coords.latitude, position.coords.longitude).then(
-             (value)=> dispatch(setAvailabity(value))
+             (value)=> dispatch(setAvailability(value))
            )
        }else{
 
@@ -83,7 +82,7 @@ const MapInput=()=>{
 
     },function(error){
         dispatch(setGPSFailed("Sorry, kindly ensure your GPS permission is enabled. Refresh page and try again"));
-    });
+    },{ enableHighAccuracy:true });
 
 
   }
@@ -97,6 +96,7 @@ const MapInput=()=>{
           <p className="control"><button onClick={handleCheck} className="button is-info">check </button></p>
 
      </div>
+     
       <GPSAndProgress handleClick={handleClick} status={state.search} found={state.address_found}/>
     </div>
   )

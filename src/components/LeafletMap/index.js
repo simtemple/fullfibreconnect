@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
-import MapInput from "./map-input";
-import Notification from "../notification";
+import MapInput from "../MapInput";
+import Notification from "../Notification";
 import AddGeoJson from "./add-geojson";
 
 
@@ -22,7 +22,7 @@ const LeafletMap=()=>{
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
 
-    <AddGeoJson /> {/* map click, load geojson, maker all happens here*/ }
+    <AddGeoJson /> {/* map click, load geojson, add maker all happens here*/ }
   </MapContainer>
   </div>
   )

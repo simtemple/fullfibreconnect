@@ -1,5 +1,5 @@
-import { useStore } from "../../global-state";
-import { disableNotification } from "../../global-state/action";
+import { useStore } from "../global-state";
+import { disableNotification } from "../global-state/action";
 
 function Notification(){
   const [state, dispatch ] = useStore();
@@ -18,7 +18,6 @@ function Notification(){
       </div>)
   }else{
     return null;
-
   }
 
 

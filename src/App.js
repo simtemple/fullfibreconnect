@@ -1,4 +1,4 @@
-import LandingPage from "./components/landing-page";
+import LandingPage from "./pages/index";
 import { MapProvider } from "./global-state/index";
 
 import "bulma/css/bulma.css";

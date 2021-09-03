@@ -1,7 +1,7 @@
-import Hero from "./layouts/hero";
-import HowItWorks from "./layouts/how-it-works";
-import LeafletMap from "./layouts/leaflet-map/index";
-import Footer from "./layouts/footer";
+import Hero from "../components/Hero";
+import HowItWorks from "../components/HowItWorks";
+import LeafletMap from "../components/LeafletMap";
+import Footer from "../components/Footer";
 import logo from "../img/logo.png";
 
 

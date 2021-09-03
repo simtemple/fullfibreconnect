@@ -41,7 +41,7 @@ export function plotGPScoords({latitude,longitude}){
 
 }
 
-export function setAvailabity(data){
+export function setAvailability(data){
   return(
     {
       type:"fibre-availability",

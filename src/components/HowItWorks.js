@@ -23,6 +23,7 @@ const ListSteps =()=>{
     </div>
   );
 }
+
 export const Heading=({title,size=""})=>(<p className={"title " + size}>{title}</p>)
 
 const HowItWorks=(props)=>{
