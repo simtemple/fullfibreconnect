@@ -2,15 +2,13 @@ import {
   useReducer,
   createContext,
   useContext,
-  useMemo
 } from "react";
 
 import reducer from "./reducer"
 
-const mapContext = createContext();
+const MapContext = createContext();
 
 const initialState={
-   geojson: true,
    coordinates:{
      lat: 5.55721,
      lng: -0.2118,
@@ -30,19 +28,26 @@ const initialState={
 
 
 function MapProvider(props){
-  const [state, dispatch] = useReducer(reducer,initialState);
-  const value  = useMemo(()=>[state, dispatch], [state]);
+ 
   return(
-    <mapContext.Provider value={value} {...props} />
+    <MapContext.Provider value={useReducer(reducer,initialState)} {...props} />
   )
 
 }
 
 function useStore(){
-  const context = useContext(mapContext);
+  const context = useContext(MapContext)[0];
   if(!context){
     throw new Error("store should be use within a MapProvider");
   }
   return context;
 }
-export { useStore, MapProvider }
+
+function useDispatch(){
+  const dispatch = useContext(MapContext)[1];
+  if(!dispatch){
+    throw new Error("useDispatch can not be used outside MapProvide")
+  }
+  return dispatch;
+}
+export { MapProvider, useStore,useDispatch}

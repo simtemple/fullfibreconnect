@@ -2,7 +2,7 @@ import { useState } from "react";
 import { checkCordinates } from "../util";
 import data from "./LeafletMap/data"
 import ghanaPostGPS from "../Api/ghpostAddress";
-import { useStore } from "../global-state";
+import { useDispatch, useStore } from "../global-state";
 import {
   plotGPScoords,
   plotGhanaGPS,
@@ -27,7 +27,8 @@ const GPSAndProgress=({handleClick, status, found })=>{
 }
 const MapInput=()=>{
   const [address, setAddress] =useState("");
-  const [state, dispatch ] = useStore();
+  const state = useStore();
+  const dispatch = useDispatch();
 
 
   const handleKeyDown =(e)=>{
