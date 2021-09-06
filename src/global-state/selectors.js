@@ -1,0 +1,1 @@
+export const selectCoords=(state)=>[state.coordinates.lat, state.coordinates.lng]
