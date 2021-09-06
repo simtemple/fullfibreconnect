@@ -1,17 +1,36 @@
-import getAddress from "./ghpostAddress";
+import getAddress,{ findAddressWithCoords } from "./ghpostAddress";
 
-test("test for Ghana post adddress gps",()=>{
-    return getAddress("AK-484-9321").then(
-        (res)=>{
-            expect(res.found).toBeTruthy();
-            expect(res.data.Table[0].Area).toBe(result.Table[0].Area);
-            expect(res.data.Table[0].CenterLatitude).toBe(result.Table[0].CenterLatitude);
-            expect(res.data.Table[0].CenterLongitude).toBe(result.Table[0].CenterLongitude)
+describe("Test for Ghana Post Address Api",()=>{
+
+    test("testing with adddress",()=>{
+        return getAddress("AK-484-9321").then(
+            (res)=>{
+                expect(res.found).toBeTruthy();
+                expect(res.data.Table[0].Area).toBe(result.Table[0].Area);
+                expect(res.data.Table[0].CenterLatitude).toBe(result.Table[0].CenterLatitude);
+                expect(res.data.Table[0].CenterLongitude).toBe(result.Table[0].CenterLongitude)
+        
+            }
+        )
     
-        }
-    )
+    });
+
+    test("testing with coordinates", ()=>{
+        const latitude = result.Table[0].CenterLatitude;
+        const longitude = result.Table[0].CenterLongitude;
+        
+        return findAddressWithCoords({latitude,longitude}).then(
+            (res)=>{
+                expect(res.found).toBeTruthy();
+                expect(res.data.Table[0].Area).toBe(result.Table[0].Area);
+                expect(res.data.Table[0].GPSName).toBe(result.Table[0].GPSName);
+            }
+        )
+    });
+
 
 })
+
 
 const result={
     "Table": [
