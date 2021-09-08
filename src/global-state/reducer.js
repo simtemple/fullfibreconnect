@@ -1,96 +1,61 @@
+import { 
+  foundGPSCoords,
+  foundAddress,
+  addressNotFound,
+  GPSCoordsNotFound,
+  findGPSCoords,
+  setMapClickMarker,
+  setFibreAvailability,
+  disableNotification,
+  findAddress
+} from "./manipulator";
+
+import { 
+  FIND_ADDRESS,
+  FOUND_ADDRESS,
+  ADDRESS_NOT_FOUND,
+  FIND_GPS_COORDINATE,
+  FOUND_GPS_COORDINATE,
+  GPS_COORDINATES_NOT_FOUND,
+  SET_FIBRE_AVAILABILITY,
+  DISABLE_NOTIFICATION,
+  MAP_CLICK
+} from "./actionTypes"
 
 function reducer(state, action){
+  const { payload } = action;
+
   switch (action.type) {
-    case "locate-ghpostAddress":
-        state ={
-          ...state,
-          search:true,
-          address_found:true,
-          marker:false,
-          zoom:13
-        }
-        return state;
-    case "address-found":
-        state = {
-          ...state,
-          search:false,
-          status:"checking...",
-          address_found:true,
-          coordinates:{ ...action.payload },
-          marker:true,
-          zoom:15,
-          gps_status:{
-            available:true,
-            message:""
-          }
-        }
+    case FIND_ADDRESS:
+        return findAddress(state);
 
-        return state;
-    case "address-not-found":
-        state={
-          ...state,
-          address_found:false,
-          search:false,
-          marker:false
-        }
+    case FOUND_ADDRESS:
 
-        return state;
-    case "locate-gps":
-        state ={
-          ...state,
-          search:true,
-          status:"checking...",
-          marker:false,
-          zoom:13
-        }
-        return state;
-    case "gps-found":
-        state = {
-          ...state,
-          search:false,
-          coordinates:{ ...action.payload },
-          marker:true,
-          zoom:15,
-          gps_status:{
-            available:true,
-            message:""
-          }
-        }
-        return state;
-    case "gps-not-found":
-        state={
-          ...state,
-          marker:false,
-          zoom:13,
-          gps_status:{
-            available:false,
-            message:action.payload
-          },
-          search:false
-        }
+        return foundAddress(state, payload);
+    case ADDRESS_NOT_FOUND:
+        
+        return addressNotFound(state,payload);
+    case FIND_GPS_COORDINATE:
 
-      return state;
-    case "map-click":
+        return findGPSCoords(state);
+    case FOUND_GPS_COORDINATE:
+        
+        return foundGPSCoords(state,payload);
+    case GPS_COORDINATES_NOT_FOUND:
+       
+        return GPSCoordsNotFound(state,payload);
 
-          state={...state, coordinates:{...action.payload},status:"checking...",marker:true, zoom:15};
-          return state;
-      case "geojson-loaded":
-        state ={...state, geojson:false}
-        return state;
+    case MAP_CLICK:
 
-      case "fibre-availability":
+        return setMapClickMarker(state, payload);
 
-        state ={...state, status:action.payload}
-        return state;
-      case "disable-notification":
-        state ={...state,
-          gps_status:{
-          available:true,
-          message:""
-         }
-       }
+    case SET_FIBRE_AVAILABILITY:
+        
+        return setFibreAvailability(state, payload);
 
-        return state;
+    case DISABLE_NOTIFICATION:
+
+        return disableNotification(state);
 
     default:
       return state;
