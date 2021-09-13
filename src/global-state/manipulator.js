@@ -1,109 +1,117 @@
-export function findAddress(state, payload){
+import produce from "immer";
+
+export function findAddress(state){
+     
+
     return(
-      {
-        ...state,
-        search:true,
-        address_found:true,
-        marker:false,
-        zoom:13
-      }
+      produce(state, draft=>{
+        draft.search= true;
+        draft.zoom = 13;
+        draft.address_found= true;
+        draft.marker="false"
+      })
     )
 }
 
 export function foundAddress(state,payload){
+  
       return(
-        {
-          ...state,
-          search:false,
-          status:"checking...",
-          address_found:true,
-          coordinates:{ ...payload },
-          marker:true,
-          zoom:15,
-          gps_status:{
-            available:true,
-            message:""
-          }
-        }
+        produce(state, draft=>{
+          draft.search = false;
+          draft.status="checking...";
+          draft.address_found = true;
+          draft.coordinates= payload;
+          draft.zoom=15;
+          draft.marker = true;
+          draft.gps_status.available = true;
+        })
       );
 }
 
 export function addressNotFound(state, payload){
+
+    
     return(
-      {
-        ...state,
-        search:false,
-        status:"checking...",
-        address_found:true,
-        coordinates:{ ...payload },
-        marker:true,
-        zoom:15,
-        gps_status:{
-          available:true,
-          message:""
-        }
-      }
-    )
+      produce(state,draft=>{
+        draft.search=false;
+        draft.status = "checking";
+        draft.address_found=false;
+        draft.coordinates.marker=false;
+        draft.zoom = 13;
+        draft.gps_status.available=false;
+        draft.gps_status.message ="Ghana Address not Found"
+  
+      })
+    );
 }
 
 export function findGPSCoords(state){
-  return({
-    ...state,
-    search:true,
-    status:"checking...",
-    marker:false,
-    zoom:13
-  })
+
+  
+    return(
+        produce(state, draft=>{
+          draft.search = true;
+          draft.marker = false;
+          draft.zoom = 13;
+          draft.status = "checking..."
+          draft.gps_status.available = true;
+        }
+    )
+  )
 }
 
 export function foundGPSCoords(state,payload){
-    return({
-      ...state,
-      search:false,
-      coordinates:{ ...payload },
-      marker:true,
-      zoom:15,
-      gps_status:{
-        available:true,
-        message:""
-      }
-    })
+  
+    return(
+      produce(state, draft=>{
+        draft.search=false;
+        draft.coordinates= payload;
+        draft.marker=true;
+        draft.zoom=15;
+        draft.gps_status.available= true;
+        draft.gps_status.message="";
+         
+     })
+    )
 }
 
 export function GPSCoordsNotFound(state,payload){
-    return({
-      ...state,
-      marker:false,
-      zoom:13,
-      gps_status:{
-        available:false,
-        message:payload
-      },
-      search:false
-    });
+  
+    return(
+      produce(state, draft=>{
+        draft.search = false;
+        draft.marker = false;
+        draft.zoom = 13;
+        draft.gps_status.available = false;
+        draft.gps_status.message = payload;
+      })
+    );
 }
 
 export function disableNotification(state){
+
+  
     return(
-      {
-        ...state,
-        gps_status:{
-          available:true,
-          message:""
-        } 
-      });
+      produce(state, draft=>{
+        draft.gps_status.available= true;
+        draft.gps_status.message="";
+      })
+    );
 }
 
 export function setFibreAvailability(state,payload){
-    return({...state, status:payload})
+   
+    return( produce(state, draft=>{ draft.status= payload }))
 }
 
 export function setMapClickMarker(state,payload){
+  
     return(
-      {
-        ...state, 
-        coordinates:{...payload},
-        status:"checking...",
-        marker:true, zoom:15
-      });
+      produce(state, draft=>{
+        draft.coordinates = payload;
+        draft.marker = true;
+        draft.status ="checking...";
+    
+      })
+    );
 }
