@@ -1,31 +1,10 @@
-import { Marker, Tooltip, useMapEvent } from "react-leaflet";
-import data from "./data";
+import { Marker, Tooltip} from "react-leaflet";
 import icon from "./icon";
-import { checkCordinates} from "../../util";
-import { useDispatch, useStore } from "../../global-state";
-import {
-    mapWasClicked,
-    setAvailability
-} from "../../global-state/action";
-
-
+import {useStore } from "../../global-state";
 
 
 const CustomMaker = () => {
     const state = useStore();
-    const dispatch = useDispatch();
-    
-
-    useMapEvent({
-        click: (e) => {
-            dispatch(mapWasClicked(e.latlng));
-            checkCordinates(data, e.latlng.lat, e.latlng.lng).then(
-                (value) => dispatch(setAvailability(value))
-            )
-        }
-    });
-
-   
     
     //return null marker if map has not clicked but stills load geojson data
     return (!state.marker ? null : (
