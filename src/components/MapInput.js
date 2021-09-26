@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { checkCordinates } from "../util";
 import data from "./LeafletMap/data"
-import ghanaPostGPS from "../Api/ghpostAddress";
+import translateGPSAdress from "../api/ghpostAddress";
 import { useDispatch, useStore } from "../global-state";
 import {
   plotGPScoords,
   plotGhanaGPS,
   setAvailability,
-  setGPSFailed,
+  setGPSFailed as locationStatus,
   gpsLocate,
   addressNotFound
 } from "../global-state/action";
@@ -15,22 +15,37 @@ import {
 
 const GhpostValidationReg = /^[a-zA-Z][a-zA-Z0-9](-\d{3})(-\d{4})/
 
-const GPSAndProgress=({handleClick, status, found })=>{
+const GPSAndProgress=({handleClick, status })=>{
 
   return(
     <div className="buttons is-group">
       <button onClick={ handleClick } className="button is-info">use GPS</button>
       { status ?(<button className="button is-info is-loading"></button>):null }
-      { !found ?(<button className="button" disabled>Address Not Found</button>): null }
     </div>
   )
 }
+
 const MapInput=()=>{
   const [address, setAddress] =useState("");
   const state = useStore();
   const dispatch = useDispatch();
 
-
+  const plotsAndCheckAvailability=(json)=>{
+      if(json.found){
+        dispatch(plotGhanaGPS(
+          json.data.Table[0].CenterLatitude,
+          json.data.Table[0].CenterLongitude
+        ));
+        checkCordinates(data,json.data.Table[0].CenterLatitude,json.data.Table[0].CenterLongitude)
+        .then(
+          (value)=> dispatch(
+            setAvailability(`${value} at ${json.data.Table[0].Street}, ${json.data.Table[0].Area}` ))
+        )
+      }else {
+         dispatch(addressNotFound());
+      }
+    
+  }
   const handleKeyDown =(e)=>{
     if (e.code ==="Enter") {
         handleCheck(e);
@@ -40,26 +55,14 @@ const MapInput=()=>{
   const handleCheck=(e)=>{
       if(GhpostValidationReg.test(address)){
         dispatch(gpsLocate());
-        ghanaPostGPS(address).then(
-          (json)=>{
-            if(json.found){
-              dispatch(plotGhanaGPS(
-                json.data.Table[0].CenterLatitude,
-                json.data.Table[0].CenterLongitude
-              ));
-              checkCordinates(data,json.data.Table[0].CenterLatitude,json.data.Table[0].CenterLongitude)
-              .then(
-                (value)=> dispatch(
-                  setAvailability(`${value} at ${json.data.Table[0].Street}, ${json.data.Table[0].Area}` ))
-              )
-            }else {
-               dispatch(addressNotFound());
-            }
-          }
-        )
+        translateGPSAdress(
+          address, 
+          plotsAndCheckAvailability,
+          ()=>dispatch(locationStatus("Something went wrong. Kindly check your internet connection and try again"))
+        );
 
       }else{
-        console.log("incorrect address");
+       dispatch(locationStatus("Incorrect Address"));
       }
   }
 
@@ -78,11 +81,11 @@ const MapInput=()=>{
            )
        }else{
 
-         dispatch(setGPSFailed("Sorry, GPS proximity exceeds 25m, use Ghana Post GPS address instead"));
+         dispatch(locationStatus("Sorry, GPS proximity exceeds 25m, use Ghana Post GPS address instead"));
        }
 
     },function(error){
-        dispatch(setGPSFailed("Sorry, kindly ensure your GPS permission is enabled. Refresh page and try again"));
+        dispatch(locationStatus("Sorry, kindly ensure your GPS permission is enabled. Refresh page and try again"));
     },{ enableHighAccuracy:true });
 
 

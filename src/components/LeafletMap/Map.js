@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer,useMapEvent } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import CustomMarker from "./CustomMarker";
 import GeoJson from './GeoJson';
 import Events from './Events';
