@@ -28,7 +28,7 @@ export function foundAddress(state,payload){
       );
 }
 
-export function addressNotFound(state, payload){
+export function addressNotFound(state){
 
     
     return(
@@ -100,8 +100,12 @@ export function disableNotification(state){
 }
 
 export function setFibreAvailability(state,payload){
-   
-    return( produce(state, draft=>{ draft.status= payload }))
+    return( produce(state, draft=>{ 
+      draft.status= payload 
+      draft.gps_status.available = false;
+      draft.gps_status.message = payload
+    
+    }))
 }
 
 export function setMapClickMarker(state,payload){

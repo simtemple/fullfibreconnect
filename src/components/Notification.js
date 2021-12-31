@@ -1,5 +1,5 @@
 import { useDispatch, useStore } from "../global-state";
-import { disableNotification } from "../global-state/action";
+import { disableNotification } from "../global-state/actions";
 
 function Notification(){
   const state = useStore();

@@ -56,7 +56,7 @@ function checkCordinates(data,lat,lng){
                  resolve("Available");
               }
             } if(data.features[i].properties && data.features[i].geometry.type === "LineString"){
-              if(booleanIntersect(data.features[i],pt)){
+              if(booleanIntersect(buffer(data.features[i],0.02), bufferPoint)){
                  resolve("Available");
               }
 

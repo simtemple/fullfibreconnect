@@ -1,7 +1,7 @@
 import { useMapEvent } from "react-leaflet";
 import { useDispatch} from "../../global-state";
 import { checkCordinates } from '../../util';
-import { setAvailability,mapWasClicked } from '../../global-state/action';
+import { setAvailability,mapWasClicked } from '../../global-state/actions';
 
 function Events({coordinates, data}){
     const dispatch = useDispatch()

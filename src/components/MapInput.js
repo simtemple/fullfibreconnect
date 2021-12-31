@@ -10,10 +10,10 @@ import {
   setGPSFailed as locationStatus,
   gpsLocate,
   addressNotFound
-} from "../global-state/action";
+} from "../global-state/actions";
 
 
-const GhpostValidationReg = /^[a-zA-Z][a-zA-Z0-9](-\d{3})(-\d{4})/
+const GhpostValidationReg = /^[a-zA-Z][a-zA-Z0-9](-\d{3,4})(-\d{4})/
 
 const GPSAndProgress=({handleClick, status })=>{
 
@@ -30,17 +30,16 @@ const MapInput=()=>{
   const state = useStore();
   const dispatch = useDispatch();
 
-  const plotsAndCheckAvailability=(json)=>{
+  const plotsAndCheckAvailability= async (json)=>{
       if(json.found){
         dispatch(plotGhanaGPS(
           json.data.Table[0].CenterLatitude,
           json.data.Table[0].CenterLongitude
         ));
-        checkCordinates(data,json.data.Table[0].CenterLatitude,json.data.Table[0].CenterLongitude)
-        .then(
-          (value)=> dispatch(
-            setAvailability(`${value} at ${json.data.Table[0].Street}, ${json.data.Table[0].Area}` ))
-        )
+
+        const value = await checkCordinates(data,json.data.Table[0].CenterLatitude,json.data.Table[0].CenterLongitude)
+        dispatch(setAvailability(`${value} at ${json.data.Table[0].Street}, ${json.data.Table[0].Area}` ))
+        
       }else {
          dispatch(addressNotFound());
       }
