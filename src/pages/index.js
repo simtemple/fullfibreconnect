@@ -1,7 +1,9 @@
+import {Helmet} from "react-helmet";
 import Hero from "../components/Hero";
 import HowItWorks from "../components/HowItWorks";
 import LeafletMap from "../components/LeafletMap";
 import Footer from "../components/Footer";
+import appData from "../api/app.json"
 import logo from "../img/logo.png";
 
 
@@ -18,11 +20,14 @@ const LandingPage=()=>{
 
   return(
     <Landing>
+      <Helmet>
+        <title>MTN Fibre Checker</title>
+      </Helmet>  
       <Hero
         logo={logo}
-        title={"Fibre Broadband Checker"}
-        subtitle={"A simple and easy way to check MTN fibre availability in or out of your area."} />
-      <HowItWorks />
+        title={appData.about.title}
+        subtitle={appData.about.description} />
+      <HowItWorks  steps={appData.steps}/>
       <LeafletMap />
       <Footer />
     </Landing>
