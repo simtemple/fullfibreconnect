@@ -1,9 +1,9 @@
-import getAddress,{ findAddressWithCoords } from "./ghpostAddress";
+import getAddress,{ findAddressWithCoords } from "./{PostCode}";
 
-describe("Test for Ghana Post Address Api",()=>{
+describe("Test for UK Post Code Api",()=>{
 
-    it("testing with Gh adddress",()=>{
-        return getAddress("AK-484-9321",
+    it("testing with UK adddress",()=>{
+        return getAddress("IP1 2AR",
             (res)=>{
                 expect(res.found).toBeTruthy();
                 expect(res.data.Table[0].Area).toBe(result.Table[0].Area);
@@ -38,22 +38,20 @@ describe("Test for Ghana Post Address Api",()=>{
 const result={
     "Table": [
         {
-            "Area": "NEW KAGYASI",
-            "CenterLatitude": 6.650080145273592,
-            "CenterLongitude": -1.648700346667856,
-            "District": "Kumasi",
-            "EastLat": 6.65005768739201,
-            "EastLong": -1.6486780409076,
-            "GPSName": "AK4849321",
-            "NorthLat": 6.65010262239948,
-            "NorthLong": -1.6487229566718,
-            "PostCode": "AK484",
-            "Region": "Ashanti",
-            "SouthLat": 6.65005768739201,
-            "SouthLong": -1.6487229566718,
-            "Street": "Kumasi, Ashanti, GHA",
-            "WestLat": 6.65010262239948,
-            "WestLong": -1.6486780409076
+             "PostCode": "string",
+    "Availability": [{
+        "UPRN": 0,
+        "AddressShortDescription": "string",
+        "PostCode": "string",
+        "MaxBbPredictedDown": 0.0,
+        "MaxBbPredictedUp": 0.0,
+        "MaxSfbbPredictedDown": 0.0,
+        "MaxSfbbPredictedUp": 0.0,
+        "MaxUfbbPredictedDown": 0.0,
+        "MaxUfbbPredictedUp": 0.0,
+        "MaxPredictedDown": 0.0,
+        "MaxPredictedUp": 0.0
+    }]
         }
     ],
     "found": true
