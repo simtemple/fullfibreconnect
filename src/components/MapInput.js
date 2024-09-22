@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { checkCordinates } from "../util";
 import data from "./LeafletMap/data"
-import translateGPSAdress from "../api/ghpostAddress";
+import translateGPSAdress from "../api/PostCode";
 import { useDispatch, useStore } from "../global-state";
 import {
   plotGPScoords,
-  plotGhanaGPS,
+  plotUKGPS,
   setAvailability,
   setGPSFailed as locationStatus,
   gpsLocate,
@@ -52,7 +52,7 @@ const MapInput=()=>{
   }
 
   const handleCheck=(e)=>{
-      if(GhpostValidationReg.test(address)){
+      if(PostCodeValidationReg.test(address)){
         dispatch(gpsLocate());
         translateGPSAdress(
           address, 
