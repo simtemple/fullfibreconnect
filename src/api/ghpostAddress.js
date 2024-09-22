@@ -1,6 +1,6 @@
-/* Ghana Post address engineering was done by sperixlabs.org */
+/* OFCOM */
 
-const URL = "https://ghanapostgps.sperixlabs.org";
+const URL = "https://api-proxy.ofcom.org.uk";
 const urlencoded = new URLSearchParams();
 const methodAndHeaders = {
   'method': 'POST',
@@ -37,7 +37,7 @@ function findAddressWithCoords(coords) {
   };
 
 
-  return (fetch("https://ghanapostgps.sperixlabs.org/get-address", options )
+  return (fetch("https://api-proxy.ofcom.org.uk/broadband/coverage/{PostCode}", options )
   .then(response => response.json()))
 
   
