@@ -1,10 +1,10 @@
 {
     "about": {
-        "title": "Fibre Broadband Checker",
-        "description": "A Simple And Easy Way To Check MTN Fibre Availability In Or Out Of Your Area."
+        "title": "Full Fibre Broadband Checker",
+        "description": "A Simple And Easy Way To Check Full Fibre Availability In UK."
     },
     "steps": [
-        "Enter your GhanaPostGPS Address or click the GPS icon to use your current location",
+        "Enter your Postal Code Address",
         "Find your pinned location on map. The yellow highlighted areas is where there is MTN fibre",
         "Read the indication on the pinned location. Available means you can be connected "
     ]
