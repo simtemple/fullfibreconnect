@@ -21,7 +21,7 @@ const LandingPage=()=>{
   return(
     <Landing>
       <Helmet>
-        <title>MTN Fibre Checker</title>
+        <title>Full Fibre Checker</title>
       </Helmet>  
       <Hero
         logo={logo}
