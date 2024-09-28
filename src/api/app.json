@@ -4,8 +4,8 @@
         "description": "A Simple And Easy Way To Check Full Fibre Availability In UK."
     },
     "steps": [
-        "Enter your Postal Code Address",
-        "Find your pinned location on map. The yellow highlighted areas is where there is MTN fibre",
-        "Read the indication on the pinned location. Available means you can be connected "
+        "Enter a postcode to view mobile coverage by provider",
+        "Availability of broadband services (standard, superfast and ultrafast).",
+        "You can also view the results as interactive maps."
     ]
 }
