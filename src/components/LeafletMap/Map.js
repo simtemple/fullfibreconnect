@@ -19,7 +19,7 @@ const LeafletMap=()=>{
 
   return(
     <div  className="contain-map">
-    <MapInput /> { /*Ghana post address translation, gps geolocation, happens here.*/ }
+    <MapInput /> { /*UK post address translation, gps geolocation, happens here.*/ }
     <Notification />
     <MapContainer
     className="map"
